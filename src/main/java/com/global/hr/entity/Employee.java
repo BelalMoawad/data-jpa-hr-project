@@ -8,16 +8,25 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "hr-employee")
+@Table(name = "hr_employee")
 public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "emp_id")
 	private Long id;
 	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	@Column(name = "emp_name")
 	private String name;
 	
@@ -25,8 +34,12 @@ public class Employee {
 	
 	@ManyToOne
 	@JoinColumn(name = "department_id")
-	@JsonIgnore
+//	@JsonIgnore
 	private Department department;
+	
+	@OneToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 
 	public Department getDepartment() {
 		return department;
