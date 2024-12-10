@@ -31,4 +31,12 @@ public class DepartmentService {
 		current.setName(dept.getName());
 		return departmentRepo.save(current);
 	}
+	
+	public void deleteById(Long id) {
+		departmentRepo.deleteById(id);
+	}
+
+	public void deleteAll() {
+		departmentRepo.deleteAll();
+	}
 }

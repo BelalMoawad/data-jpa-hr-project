@@ -1,7 +1,10 @@
 package com.global.hr.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.global.hr.entity.User;
 import com.global.hr.repository.UserRepo;
 import jakarta.persistence.EntityNotFoundException;
@@ -17,8 +20,8 @@ public class UserService {
 				.orElseThrow(() -> new EntityNotFoundException("User not found with id " + id));
 	}
 	
-	public Iterable<User> findAll() {
-		return userRepo.findAll();
+	public ArrayList<User> findAll() {
+		return (ArrayList<User>) userRepo.findAll();
 	}
 
 	
@@ -31,5 +34,13 @@ public class UserService {
 		current.setUserName(user.getUserName());
 		current.setPassword(user.getPassword());
 		return userRepo.save(current);
+	}
+	
+	public void deleteById(Long id) {
+		userRepo.deleteById(id);
+	}
+
+	public void deleteAll() {
+		userRepo.deleteAll();
 	}
 }

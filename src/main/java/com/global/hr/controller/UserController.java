@@ -11,43 +11,43 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.global.hr.entity.Department;
-import com.global.hr.service.DepartmentService;
+import com.global.hr.entity.User;
+import com.global.hr.service.UserService;
 
 
 @RestController
-@RequestMapping("/department")
-public class DepartmentController {
+@RequestMapping("/user")
+public class UserController {
 	@Autowired
-	private DepartmentService departmentService;
+	private UserService userService;
 	
 	@GetMapping("/{id}")
-	public Department findById(@PathVariable Long id) {
-		return departmentService.findById(id);
+	public User findById(@PathVariable Long id) {
+		return userService.findById(id);
 	}
 	
 	@GetMapping("")
-	public Iterable<Department> findAll() {
-		return departmentService.findAll();
+	public Iterable<User> findAll() {
+		return userService.findAll();
 	}
 	
 	@PostMapping("")
-	public Department  insert(@RequestBody Department dept) {
-		return departmentService.insert(dept);
+	public User  insert(@RequestBody User user) {
+		return userService.insert(user);
 	}
 	
 	@PutMapping("")
-	public Department  update(@RequestBody Department  dept) {
-		return departmentService.update(dept);
+	public User  update(@RequestBody User  user) {
+		return userService.update(user);
 	}
 	
 	@DeleteMapping("/{id}")
 	public void deleteById(@PathVariable Long id) {
-		departmentService.deleteById(id);
+		userService.deleteById(id);
 	}
 	
 	@DeleteMapping("")
 	public void deleteAll() {
-		departmentService.deleteAll();
+		userService.deleteAll();
 	}
 }
