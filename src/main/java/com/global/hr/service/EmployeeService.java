@@ -1,14 +1,17 @@
 package com.global.hr.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import com.global.hr.HRStatisticsProjection;
 import com.global.hr.entity.Employee;
+import com.global.hr.projection.EmployeeProjection;
+import com.global.hr.projection.HRStatisticsProjection;
 import com.global.hr.repository.EmployeeRepo;
-
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
@@ -52,8 +55,22 @@ public class EmployeeService {
 		return employeeRepo.findByDepartmentIdNative(deptId);
 	}
 	
-	public List<Employee> findByDepartmentIdJPQL(Long deptId) {
-		return employeeRepo.findByDepartmentIdJPQL(deptId);
+	public Page<Employee> findByDepartmentIdJPQL(Long deptId, int pageNum, int pageSize, String sortCol, Boolean isAsc) {
+	/*	
+		// Sort object with List of Order objects.
+		List<Order> orders = new ArrayList<Order>();
+		
+		Order order1 = new Order(isAsc ? Direction.ASC : Direction.DESC, sortCol);
+		orders.add(order1);
+		
+		Order order2 = new Order(Direction.ASC , "id");
+		orders.add(order2);
+		
+		PageRequest page = PageRequest.of(pageNum, pageSize, Sort.by(orders));
+	*/	
+		PageRequest page = PageRequest.of(pageNum, pageSize, Sort.by(isAsc ? Direction.ASC : Direction.DESC, sortCol));
+		
+		return employeeRepo.findByDepartmentIdJPQL(deptId, page);
 	}
 	
 	public List<Employee> findByDepartmentId(Long deptId) {

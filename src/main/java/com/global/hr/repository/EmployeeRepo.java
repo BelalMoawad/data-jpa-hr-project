@@ -2,14 +2,17 @@ package com.global.hr.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.global.hr.HRStatisticsProjection;
 import com.global.hr.entity.Employee;
+import com.global.hr.projection.EmployeeProjection;
+import com.global.hr.projection.HRStatisticsProjection;
 
 import jakarta.transaction.Transactional;
 
@@ -37,8 +40,12 @@ public interface EmployeeRepo extends JpaRepository<Employee, Long> {
 	
 	
 	// by java query (JPQL)
-	@Query("SELECT emp FROM Employee emp JOIN emp.department dept Where dept.id = :deptId")
-	public List<Employee> findByDepartmentIdJPQL(@Param("deptId") Long deptId);
+		// interface projection
+//		@Query("SELECT emp FROM #{#entityName} emp JOIN emp.department dept Where dept.id = :deptId")
+//		public Page<EmployeeProjection> findByDepartmentIdJPQL(@Param("deptId") Long deptId, Pageable pageable);
+		// class based projection
+		@Query("SELECT new Employee(emp.id, emp.name, emp.salary) FROM #{#entityName} emp JOIN emp.department dept Where dept.id = :deptId")
+		public Page<Employee> findByDepartmentIdJPQL(@Param("deptId") Long deptId, Pageable pageable);
 	
 	// by Derived / LookUP query
 	public List<Employee> findByDepartmentId(Long deptId);

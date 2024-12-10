@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.global.hr.entity.Role;
 import com.global.hr.entity.User;
 import com.global.hr.service.UserService;
 
@@ -20,6 +21,11 @@ import com.global.hr.service.UserService;
 public class UserController {
 	@Autowired
 	private UserService userService;
+	
+	@PutMapping("role/{roleName}")
+	public void addRoleForAllUsers(@PathVariable String roleName) {
+		userService.addRoleForAllUsers(roleName);
+	}
 	
 	@GetMapping("/{id}")
 	public User findById(@PathVariable Long id) {
@@ -50,4 +56,6 @@ public class UserController {
 	public void deleteAll() {
 		userService.deleteAll();
 	}
+	
+	
 }

@@ -35,6 +35,17 @@ public class Employee {
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private User user;
+	
+	public Employee() {
+		super();
+	}
+
+	public Employee(Long id, String name, Double salary) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.salary = salary;
+	}
 
 	public Department getDepartment() {
 		return department;

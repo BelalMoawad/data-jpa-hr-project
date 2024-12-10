@@ -3,6 +3,7 @@ package com.global.hr.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.global.hr.HRStatisticsProjection;
 import com.global.hr.entity.Employee;
 import com.global.hr.service.EmployeeService;
 
@@ -37,8 +36,8 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/department/jpql/{deptId}")
-	public List<Employee> findByDepartmentIdJPQL(@PathVariable Long deptId) {
-		return employeeService.findByDepartmentIdJPQL(deptId);
+	public ResponseEntity<?> findByDepartmentIdJPQL(@PathVariable Long deptId, @RequestParam int pageNum, @RequestParam int pageSize, @RequestParam String sortCol, @RequestParam Boolean isAsc) {
+		return ResponseEntity.ok(employeeService.findByDepartmentIdJPQL(deptId, pageNum, pageSize, sortCol, isAsc));
 	}
 	
 	@GetMapping("/department/{deptId}")

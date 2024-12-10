@@ -1,4 +1,4 @@
-package com.global.hr;
+package com.global.hr.projection;
 
 public interface HRStatisticsProjection {
 	Long getEmpCount();
