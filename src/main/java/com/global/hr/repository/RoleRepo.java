@@ -8,6 +8,6 @@ import com.global.hr.entity.Role;
 @Repository
 public interface RoleRepo extends JpaRepository<Role, Long> {
 	
-	public Role findByName(String roleName);
+	public Role findByRoleName(String roleName);
 	
 }

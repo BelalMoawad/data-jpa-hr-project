@@ -22,7 +22,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@PutMapping("role/{roleName}")
+	@PutMapping("/role/{roleName}")
 	public void addRoleForAllUsers(@PathVariable String roleName) {
 		userService.addRoleForAllUsers(roleName);
 	}

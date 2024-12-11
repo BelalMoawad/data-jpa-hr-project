@@ -33,6 +33,6 @@ public class RoleService {
 	}
 	
 	public Role findByName(String roleName) {
-		return roleRepo.findByName(roleName);
+		return roleRepo.findByRoleName(roleName);
 	}
 }

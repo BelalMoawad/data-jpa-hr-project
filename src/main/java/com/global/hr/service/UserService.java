@@ -40,20 +40,19 @@ public class UserService {
 		current.setPassword(user.getPassword());
 		return userRepo.save(current);
 	}
-	
+	// make all function as one transaction
 	@Transactional
 	public void addRoleForAllUsers(String roleName) {
+		// begin transaction
 		Role role = roleService.findByName(roleName);
 		
-		userRepo.findAll().forEach( user -> {
+		findAll().forEach( user -> {
 			user.addRole(role);
 			userRepo.save(user);
 		});
+		//commit or roll_back
+		//end transaction
 	}
-	
-	
-	
-	
 	
 	public void deleteById(Long id) {
 		userRepo.deleteById(id);
